@@ -1,0 +1,15 @@
+version: '3'
+services:
+  influxdb:
+    container_name: influxdb2
+    restart: unless-stopped
+    image: influxdb:latest
+    volumes:
+      - ./data:/var/lib/influxdb2:rw
+    ports:
+      - "8086:8086"
+
+networks:
+  default:
+   name: docker1Network
+   external: true
