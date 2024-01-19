@@ -1,0 +1,2 @@
+smb_password = "smb"
+vm_user_password = "user"

@@ -1,6 +1,0 @@
-proxmox_node = "pve1"
-vm_template = "Fedora39-Cloud"
-vm_user = "jndvasco"
-smb_user = "homelab"
-smb_server = "10.0.20.3"
-smb_share = "dockerData"
