@@ -1,0 +1,17 @@
+version: "3"
+services:
+  grafana:
+    image: grafana/grafana:9.2.2
+    container_name: grafana
+    user: 1001:1001
+    volumes:
+      - ./data:/var/lib/grafana
+      - ./grafana.ini:/etc/grafana/grafana.ini
+    ports:
+      - 3000:3000
+    restart: unless-stopped
+
+networks:
+  default:
+   name: docker1Network
+   external: true

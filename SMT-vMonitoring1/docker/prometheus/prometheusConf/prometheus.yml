@@ -1,0 +1,84 @@
+global:
+  scrape_interval:     15s # Set the scrape interval to every 15 seconds. Default is every 1 minute.
+  evaluation_interval: 15s # Evaluate rules every 15 seconds. The default is every 1 minute.
+
+alerting:
+  alertmanagers:
+    - static_configs:
+      - targets: ["alertmanager:9093"]
+
+rule_files:
+  - /etc/prometheus/alert_rules.yml
+
+scrape_configs:
+  # - job_name: 'endlessh'
+  #   scrape_interval: 10s
+  #   static_configs:
+  #     - targets: ['192.168.1.70:2112']
+  #     - labels:
+  #         host: 'skywalker'
+
+  # - job_name: minio-job
+  #   bearer_token: eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJleHAiOjQ4MTAyODQyOTAsImlzcyI6InByb21ldGhldXMiLCJzdWIiOiJhZG1pbiJ9.-1WbmKBIa_em-euaB4E_63ZYE5CUyRSsuYQ6u5Cu0uQYi_rVMoAzBi_LuuUMarbu9DuppZ19mRJ_jIV4nPME-Q
+  #   metrics_path: /minio/v2/metrics/cluster
+  #   scheme: http
+  #   static_configs:
+  #     - targets: ['10.0.10.14:9000']
+  #     - labels:
+  #         host: 'skywalker'
+  - job_name: DHCP1
+    metrics_path: /metrics
+    scheme: http
+    static_configs:
+      - targets: ['192.168.1.174:9991']
+      - labels:
+          host: 'HL-vDHCP1'
+
+  - job_name: Grafana
+    metrics_path: /metrics
+    scheme: https
+    static_configs:
+      - targets: ['grafana.lab.jndvasco.pt']
+      - labels:
+          host: 'HL-Docker1'
+
+  - job_name: EMQX
+    metrics_path: /api/v5/prometheus/stats
+    scheme: http
+    static_configs:
+      - targets: ['mqtt.lab.jndvasco.pt:18083']
+      - labels:
+          host: 'NAS3'
+
+  - job_name: HL-DNS2
+    static_configs:
+      - targets: ['192.168.1.16:4000']
+      - labels:
+          host: 'HL-Docker1'
+
+  - job_name: HL-DNS1
+    static_configs:
+      - targets: ['192.168.1.15:4000']
+      - labels:
+          host: 'NAS3'
+
+  - job_name: HL-NS1
+    metrics_path: /metrics
+    static_configs:
+      - targets: ['192.168.1.21:8009']
+      - labels:
+          host: 'NAS3'
+
+  - job_name: HL-NS2
+    metrics_path: /metrics
+    static_configs:
+      - targets: ['192.168.1.22:8009']
+      - labels:
+          host: 'HL-Docker1'
+
+  - job_name: HL-NS3
+    metrics_path: /metrics
+    static_configs:
+      - targets: ['192.168.1.23:8009']
+      - labels:
+          host: 'HL-vDocker2'

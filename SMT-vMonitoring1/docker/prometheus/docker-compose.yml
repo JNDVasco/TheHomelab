@@ -1,0 +1,19 @@
+version: '3'
+
+services:
+  prometheus:
+    container_name: prometheus
+    image: prom/prometheus
+    restart: unless-stopped
+    ports:
+      - 8090:9090
+    volumes:
+      - ./prometheusConf/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - ./prometheusData:/prometheus:rw
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+
+networks:
+  default:
+    name: mainNetwork
+    external: true

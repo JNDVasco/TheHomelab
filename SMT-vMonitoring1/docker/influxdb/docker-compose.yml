@@ -1,0 +1,16 @@
+version: '3'
+
+services:
+  influxdb:
+    container_name: influxdb2
+    image: influxdb:latest
+    restart: unless-stopped
+    ports:
+      - 8086:8086
+    volumes:
+      - ./data:/var/lib/influxdb2:rw
+
+networks:
+  default:
+    name: mainNetwork
+    external: true

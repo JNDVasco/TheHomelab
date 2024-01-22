@@ -1,0 +1,26 @@
+version: '3'
+
+services:
+  loki:
+    container_name: loki
+    image: grafana/loki:latest
+    restart: unless-stopped
+    ports:
+      - 3100:3100
+    volumes:
+      - ./loki:/etc/loki
+    command: -config.file=/etc/loki/lokiConfig.yml
+
+  promtail:
+    container_name: promtail
+    image: grafana/promtail:latest
+    restart: unless-stopped
+    volumes:
+      - /var/log:/var/log
+      - ./promtail:/etc/promtail
+    command: -config.file=/etc/promtail/promtailConfig.yml
+
+networks:
+  default:
+    name: mainNetwork
+    external: true
