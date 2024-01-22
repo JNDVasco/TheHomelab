@@ -14,6 +14,8 @@ Currently I have two homelabs in two different locations.
 
 ### SMT
 
+Small cluster from refurbished Dell 7050 Micros
+
 | Hostname |      OS     |        Specs        |   Storage   |
 |:--------:|:-----------:|:-------------------:|:-----------:|
 | SMT-PVE1 | Proxmox 8.1 | i5-7500 \| 24GB RAM | 1x512GB SDD |
@@ -23,6 +25,8 @@ These two proxmox hosts are configured as a proxmox cluster. The configuration h
 
 
 ### Main Lab
+
+Custom server build, a NAS and a RPi
 
 |  Hostname  |      OS     |         Specs        |                  Storage                  |
 |:----------:|:-----------:|:--------------------:|:-----------------------------------------:|
