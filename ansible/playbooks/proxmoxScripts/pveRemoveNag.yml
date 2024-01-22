@@ -1,0 +1,37 @@
+- name: Remove PVE Nag and set the no subscription repository 
+  hosts: smt
+  tasks:
+    - name: Edit file to remove nag
+      replace:
+        path: /usr/share/javascript/proxmox-widget-toolkit/proxmoxlib.js
+        regexp: 'res[\s\n]*\.data\.status\.toLowerCase\(\) !== .active.'
+        replace: "false"
+        backup: yes
+
+    - name: Remove enterprise PVE
+      file:
+        path: /etc/apt/sources.list.d/pve-enterprise.list
+        state: absent
+
+    - name: Remove enterprise Ceph
+      file:
+        path: /etc/apt/sources.list.d/ceph.list
+        state: absent
+
+
+    - name: Add No Subscription PVE
+      apt_repository:
+        repo: deb http://download.proxmox.com/debian/pve {{ ansible_distribution_release }} pve-no-subscription
+        filename: pve-no-subscription
+        state: present
+
+    - name: Add No Subscription Ceph Reef
+      apt_repository:
+        repo: deb http://download.proxmox.com/debian/ceph-reef {{ ansible_distribution_release }} no-subscription
+        filename: ceph-no-subscription
+        state: present
+
+    - name: Restart pveproxy
+      service:
+        name: pveproxy
+        state: restarted

@@ -1,0 +1,11 @@
+- name: Enable Dell SMM 
+  hosts: smt
+  tasks:
+    - name: "Add i8k to /etc/modules"
+      shell: >
+        echo 'i8k' | tee -a /etc/modules
+    
+    - name: "Add i8k options"
+      shell: >
+        echo 'options i8k force=1' | tee -a /etc/modprobe.d/i8k.conf
+    

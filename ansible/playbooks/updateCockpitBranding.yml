@@ -1,0 +1,26 @@
+- hosts: '{{ target }}'
+  tasks:
+  - name: Copy Branding.css
+    copy:
+      src: /etc/ansible/data/cockpitBranding/branding.css
+      dest: '/usr/share/cockpit/branding/{{ osPath }}/branding.css'
+      backup: yes
+  - name: Copy Background.png
+    copy:
+      src: /etc/ansible/data/cockpitBranding/Background.png
+      dest: '/usr/share/cockpit/branding/{{ osPath }}/Background.png'
+      backup: yes
+  - name: Change the host name
+    replace:
+      path: '/usr/share/cockpit/branding/{{ osPath }}/branding.css'
+      regexp: '\${HOSTNAME}'
+      replace: '{{ ansible_hostname | capitalize }}'
+      backup: yes
+    notify:
+      - Restart cockpit
+
+  handlers:
+    - name: Restart cockpit
+      ansible.builtin.service:
+        name: cockpit
+        state: restarted

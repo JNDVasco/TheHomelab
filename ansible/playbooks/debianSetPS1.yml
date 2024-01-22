@@ -1,0 +1,6 @@
+- name: Set Custom PS1
+  hosts: smt
+  tasks:
+    - name: "Add custom PS1 to global bashrc"
+      shell: >
+        echo "PS1='\[\e[38;5;46m\]\u@\h\[\e[97m\]:\[\e[38;5;87m\][\w]: \[\e[0m\]'" | tee -a /etc/bash.bashrc

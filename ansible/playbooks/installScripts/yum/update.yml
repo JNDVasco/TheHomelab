@@ -1,0 +1,14 @@
+- name: Update Yum
+  hosts: smt
+  tasks:
+  - name: Update installed packages
+    yum:
+      name: '*'
+      state: latest
+      update_cache: yes
+      update_only: yes
+    register: yum_update_status
+
+  - name: Remove unused packages
+    yum:
+      autoremove: yes

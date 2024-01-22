@@ -1,0 +1,32 @@
+- name: Create a Fedora Cloud template
+  hosts: smt
+  tasks:
+    - name: "Download Fedora Cloud Image"
+      shell: >
+        wget -O /root/FedoraCloud39.qcow2 https://download.fedoraproject.org/pub/fedora/linux/releases/39/Cloud/x86_64/images/Fedora-Cloud-Base-39-1.5.x86_64.qcow2
+
+    - name: "Create the VM"
+      shell: >
+        qm create 1000 --name "Fedora39-Cloud" --memory 2048 --cores 2 --net0 virtio,bridge=vmbr0
+
+    - name: "Configure the VM"
+      shell: |
+        qm set 1000 --description "Fedora 39 Cloud image template | Cloud init ready"
+        qm importdisk 1000 /root/FedoraCloud39.qcow2 local-lvm
+        qm set 1000 --scsihw virtio-scsi-pci --scsi0 local-lvm:vm-1000-disk-0
+        qm set 1000 --boot c --bootdisk scsi0
+        qm set 1000 --ide0 local-lvm:cloudinit
+        qm set 1000 --agent enabled=1
+        qm set 1000 --onboot 1
+        qm set 1000 --ostype l26
+        qm set 1000 --ipconfig0=dhcp
+        qm set 1000 --ciuser "jndvasco"
+        qm set 1000 --sshkey /root/.ssh/authorized_keys
+        qm set 1000 --tags "Fedora"
+
+    - name: "Convert VM to template"
+      shell: >
+        qm template 1000
+
+
+

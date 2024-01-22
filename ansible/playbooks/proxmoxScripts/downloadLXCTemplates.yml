@@ -1,0 +1,11 @@
+- name: Download lxc templates
+  hosts: smt
+  tasks:
+    - name: "Update Templates"
+      shell: >
+        pveam update
+
+    - name: "Download to local-lvm"
+      shell: |
+        template=`pveam available -section system | grep alma | awk -F ' ' '{print $2}'`
+        pveam download local ${template}
