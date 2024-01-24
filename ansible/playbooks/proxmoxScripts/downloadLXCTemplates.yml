@@ -7,5 +7,5 @@
 
     - name: "Download to local-lvm"
       shell: |
-        template=`pveam available -section system | grep alma | awk -F ' ' '{print $2}'`
+        template=`pveam available -section system | grep almalinux | awk -F ' ' '{print $2}'`
         pveam download local ${template}

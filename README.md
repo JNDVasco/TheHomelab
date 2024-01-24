@@ -10,18 +10,19 @@ Hopefully this time with less hardcode and leaked credentials
 
 
 ## Hardware
-Currently I have two homelabs in two different locations.
+Currently I have two homelabs in two different locations, one in at my house and one in my bedroom while I'm on an exchange.
 
 ### SMT
 
-Small cluster from refurbished Dell 7050 Micros
+Small cluster made from refurbished mini-pcs, 2x Dell 7050 Micro and 1x Intel NUC 5
 
 | Hostname |      OS     |        Specs        |   Storage   |
 |:--------:|:-----------:|:-------------------:|:-----------:|
 | SMT-PVE1 | Proxmox 8.1 | i5-7500 \| 24GB RAM | 1x512GB SDD |
 | SMT-PVE2 | Proxmox 8.1 | i5-7500 \| 24GB RAM | 1x512GB SDD |
+| SMT-PVE3 | Proxmox 8.1 | i5-5250 \| 16GB RAM | 1x512GB SDD |
 
-These two proxmox hosts are configured as a proxmox cluster. The configuration has been changed so that if one node goes down it is no locked due to the lack of quorum votes.
+The three proxmox hosts are configured as a proxmox cluster and I plan to deploy CEPH on them as soon as I can get 3 SSD's to 
 
 
 ### Main Lab
