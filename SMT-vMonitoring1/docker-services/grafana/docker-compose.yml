@@ -1,15 +1,15 @@
 version: "3"
 services:
   grafana:
-    image: grafana/grafana:latest
     container_name: grafana
-    user: 1001:1001
+    image: grafana/grafana:latest
+    restart: unless-stopped
+    user: 1000:1000
     volumes:
       - ./data:/var/lib/grafana
       - ./grafana.ini:/etc/grafana/grafana.ini
     ports:
       - 3000:3000
-    restart: unless-stopped
 
 networks:
   default:
