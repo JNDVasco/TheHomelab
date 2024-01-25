@@ -13,5 +13,5 @@ services:
 
 networks:
   default:
-   name: docker1Network
+   name: mainNetwork
    external: true
