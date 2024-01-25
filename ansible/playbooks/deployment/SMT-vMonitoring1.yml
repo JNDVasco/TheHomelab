@@ -1,0 +1,32 @@
+- name: Clone homelab repo and deploy docker services
+  hosts: smt-vmonitoring1
+  vars:
+    - repoPath: /mnt/data/homelab
+    - dockerPath: "{{ repoPath }}/SMT-vMonitoring1/docker-services"
+  tasks:
+    - name: Clone Repo
+      become: true
+      ansible.builtin.git:
+        repo: https://github.com/JNDVasco/TheHomelab.git
+        dest: "{{ repoPath }}"
+        update: true
+
+    - name: Create and start grafana
+      shell: |
+        cd "{{ dockerPath }}/grafana" 
+        docker compose up -d
+
+    - name: Create and start influxdb
+      shell: |
+        cd "{{ dockerPath }}/influxdb" 
+        docker compose up -d
+
+    - name: Create and start prometheus
+      shell: |
+        cd "{{ dockerPath }}/prometheus" 
+        docker compose up -d
+
+    - name: Create and start uptimeKuma
+      shell: |
+        cd "{{ dockerPath }}/uptimeKuma" 
+        docker compose up -d

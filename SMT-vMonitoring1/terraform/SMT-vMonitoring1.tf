@@ -126,10 +126,23 @@ resource "proxmox_vm_qemu" "SMT-vMonitoring1" {
       "sudo echo '${lower(self.name)}.servers.jndvasco.pt' | sudo tee /etc/hostname",
       "sudo systemd-machine-id-setup",
       "sudo dnf upgrade -y",
+      "sudo dnf install git -y",
       "sudo dnf install cockpit -y",
       "sudo systemctl enable --now cockpit.socket",
     ]
   }
+
+  # Install pip, ansible and python docker
+  # provisioner "remote-exec" {
+  #   inline = [ 
+  #     "curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py",
+  #     "python3 get-pip.py --user",
+  #     "python3 -m pip install --user ansible ",
+  #     "pip install pyyaml==5.3.1", # Workarround a pip install error with docker compose
+  #     "pip install docker",
+  #     "pip install docker-compose"
+  #    ]
+  # } 
 
   # Mount extra disk for docker data
   provisioner "remote-exec" {
@@ -137,7 +150,9 @@ resource "proxmox_vm_qemu" "SMT-vMonitoring1" {
       "sudo mkdir /mnt/data",
       "sudo mkfs.ext4 /dev/sdb",
       "UUID=`sudo blkid /dev/sdb | awk -F ' ' '{print $2}' | sed 's/\"//g'`", # Get the UUID, split on spaces print the second col and remove the "
-      "sudo echo \"$UUID\" /mnt/data auto noauto,nofail 0 0 | sudo tee -a /etc/fstab"
+      "sudo echo \"$UUID\" /mnt/data auto noauto,nofail 0 0 | sudo tee -a /etc/fstab",
+      "sudo chown -R ${var.vm_user} /mnt/data",
+      "sudo chmod 775 -R /mnt/data"
      ]  
     
   }

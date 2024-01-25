@@ -1,7 +1,7 @@
 version: "3"
 services:
   grafana:
-    image: grafana/grafana:9.2.2
+    image: grafana/grafana:latest
     container_name: grafana
     user: 1001:1001
     volumes:
