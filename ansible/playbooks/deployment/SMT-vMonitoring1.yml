@@ -5,7 +5,7 @@
     - dockerPath: "{{ repoPath }}/SMT-vMonitoring1/docker-services"
   tasks:
     - name: Clone Repo
-      become: true
+      # become: true
       ansible.builtin.git:
         repo: https://github.com/JNDVasco/TheHomelab.git
         dest: "{{ repoPath }}"

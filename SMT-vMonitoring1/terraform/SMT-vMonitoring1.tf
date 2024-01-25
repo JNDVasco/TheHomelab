@@ -151,7 +151,7 @@ resource "proxmox_vm_qemu" "SMT-vMonitoring1" {
       "sudo mkfs.ext4 /dev/sdb",
       "UUID=`sudo blkid /dev/sdb | awk -F ' ' '{print $2}' | sed 's/\"//g'`", # Get the UUID, split on spaces print the second col and remove the "
       "sudo echo \"$UUID\" /mnt/data auto noauto,nofail 0 0 | sudo tee -a /etc/fstab",
-      "sudo chown -R ${var.vm_user} /mnt/data",
+      "sudo chown -R ${var.vm_user}:${var.vm_user} /mnt/data",
       "sudo chmod 775 -R /mnt/data"
      ]  
     
