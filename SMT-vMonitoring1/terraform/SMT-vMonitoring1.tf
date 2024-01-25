@@ -71,16 +71,18 @@ resource "proxmox_vm_qemu" "SMT-vMonitoring1" {
   # }
 
   #scsi 0 boot drive
+  # Disk name and storage need to be forced 
+  # Otherwise the vm may end without the OS Disk
   disk {
       type     = "scsi"
       size     = "5G"
       storage  = "local-lvm"
       iothread = 1
-      file = "vm-${var.vmid}-disk-0"
-      volume  = "local-lvm:vm-${var.vmid}-disk-0"
+      file     = "vm-${var.vmid}-disk-0"
+      volume   = "local-lvm:vm-${var.vmid}-disk-0"
   }
 
-  #scsi 1 boot drive
+  #scsi 1 data drive
   disk {
       type     = "scsi"
       size     = "16G"
@@ -156,5 +158,10 @@ resource "proxmox_vm_qemu" "SMT-vMonitoring1" {
     script = "../../scripts/telegraf-install-redhat.sh"
   } 
 
-
+  # reboot the system
+  provisioner "remote-exec" {
+    inline = [
+      "sudo reboot"
+    ]
+  }
 }

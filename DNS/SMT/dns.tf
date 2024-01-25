@@ -58,3 +58,16 @@ resource "cloudflare_record" "smt-pve2" {
   proxied = false
   ttl     = 1
 }
+
+# ----------------------------------------------------------------
+# = DNS Entry: smt-pve3.servers.jndvasco.pt
+# = Purpose: 
+# ----------------------------------------------------------------
+resource "cloudflare_record" "smt-pve3" {
+  zone_id = data.hcp_vault_secrets_app.Homelab.secrets["CF_ZONE_ID"]
+  name    = "smt-pve3.servers."
+  value   = "10.100.1.13"
+  type    = "A"
+  proxied = false
+  ttl     = 1
+}
