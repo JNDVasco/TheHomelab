@@ -2,10 +2,14 @@
   hosts: smt
   tasks:
     - name: "Add i8k to /etc/modules"
-      shell: >
-        echo 'i8k' | tee -a /etc/modules
+      lineinfile:
+        path: "/etc/modules"
+        line: 'i8k'
+      register: modules-i8k
     
     - name: "Add i8k options"
-      shell: >
-        echo 'options i8k force=1' | tee -a /etc/modprobe.d/i8k.conf
-    
+      lineinfile:
+        path: "/etc/modprobe.d/i8k.conf"
+        line: 'options i8k force=1'
+        create: true
+      register: options-i8k

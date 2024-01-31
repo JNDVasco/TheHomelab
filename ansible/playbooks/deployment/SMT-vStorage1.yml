@@ -1,0 +1,46 @@
+- name: Create a NFS Share for the lab
+  hosts: smt-vstorage1
+  vars:
+    - repoPath: /mnt/data/homelab
+    - dockerPath: "{{ repoPath }}/SMT-vMonitoring1/docker-services"
+  tasks:
+  - name: Update installed packages
+    yum:
+      name: '*'
+      state: latest
+      update_cache: yes
+      update_only: yes
+    register: yum_update_status
+
+  - name: Install git, cockpit,server, wget and nano
+    yum:
+      name:
+        - git
+        - cockpit
+        - wget
+        - nano
+        - samba
+      state: present
+    register: yum_package_install
+
+  - name: Install 45Drives cocpit plugins
+    yum:
+      name:
+        - https://github.com/45Drives/cockpit-identities/releases/download/v0.1.12/cockpit-identities-0.1.12-1.el8.noarch.rpm
+        - https://github.com/45Drives/cockpit-file-sharing/releases/download/v3.3.4/cockpit-file-sharing-3.3.4-1.el8.noarch.rpm
+      state: present
+      disable_gpg_check: true
+    register: yum_cockpit_packages
+
+  - name: Enable and start cockpit
+    service:
+      name: cockpit.socket
+      enabled: true
+      state: started
+
+  - name: Enable and start SMB
+    service:
+      name: smb
+      enabled: true
+      state: started
+       

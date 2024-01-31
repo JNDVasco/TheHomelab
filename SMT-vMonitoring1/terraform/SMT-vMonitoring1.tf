@@ -132,18 +132,6 @@ resource "proxmox_vm_qemu" "SMT-vMonitoring1" {
     ]
   }
 
-  # Install pip, ansible and python docker
-  # provisioner "remote-exec" {
-  #   inline = [ 
-  #     "curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py",
-  #     "python3 get-pip.py --user",
-  #     "python3 -m pip install --user ansible ",
-  #     "pip install pyyaml==5.3.1", # Workarround a pip install error with docker compose
-  #     "pip install docker",
-  #     "pip install docker-compose"
-  #    ]
-  # } 
-
   # Mount extra disk for docker data
   provisioner "remote-exec" {
     inline = [ 
