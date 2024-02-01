@@ -1,0 +1,2 @@
+HCP_client_id     = var.HCP_client_id
+HCP_client_secret = var.HCP_client_secret
