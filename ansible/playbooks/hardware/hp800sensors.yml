@@ -1,0 +1,13 @@
+- name: Enable HP WMI
+  hosts: smt
+  tasks:
+    - name: "Add hp-wmi-sensors to /etc/modules"
+      lineinfile:
+        path: "/etc/modules"
+        line: 'hp-wmi-sensors'
+      register: modules hp-wmi-sensors
+    
+  - name: Refresh initramfs
+    shell: |
+      update-initramfs -u -k all
+    register: initramfs

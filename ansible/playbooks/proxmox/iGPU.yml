@@ -1,0 +1,28 @@
+- name: Enable iGPU passtrough
+  hosts: smt
+  tasks:
+  - name: Enable iommu in grub
+    lineinfile:
+      path: "/etc/default/grub"
+      backrefs: true
+      regexp: '^#?(GRUB_CMDLINE_LINUX_DEFAULT="\w.*)"$'
+      line: '\1 i915.enable_gvt=1"'
+    register: iommuGrub
+
+  - name: Update Grub
+    shell: |
+      update-grub
+    register: updateGrub
+
+  - name: Load modules at boot
+    lineinfile:
+      path: "/etc/modules"
+      line: '{{ item }}'
+    with_items:
+      - kvmgt
+    register: loadModules
+
+  - name: Refresh initramfs
+    shell: |
+      update-initramfs -u -k all
+    register: initramfs

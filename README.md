@@ -14,15 +14,15 @@ Currently I have two homelabs in two different locations, one in at my house and
 
 ### SMT
 
-Small cluster made from refurbished mini-pcs, 2x Dell 7050 Micro and 1x Intel NUC 5
+Small cluster made from refurbished mini-pcs, 2x Dell 7050 Micro, 1x HP Elitedesk 800 G3 and 1x Intel NUC 5
 
-| Hostname |      OS     |        Specs        |   Storage   |
-|:--------:|:-----------:|:-------------------:|:-----------:|
-| SMT-PVE1 | Proxmox 8.1 | i5-7500 \| 24GB RAM | 1x512GB SDD |
-| SMT-PVE2 | Proxmox 8.1 | i5-7500 \| 24GB RAM | 1x512GB SDD |
-| SMT-PVE3 | Proxmox 8.1 | i5-5250 \| 16GB RAM | 1x512GB SDD |
+| Hostname |      OS     |        Specs        |   Storage   |     CEPH    |
+|:--------:|:-----------:|:-------------------:|:-----------:|:-----------:|
+| SMT-PVE1 | Proxmox 8.1 | i5-7500 \| 32GB RAM | 1x256GB SDD | 1x256GB SDD |
+| SMT-PVE2 | Proxmox 8.1 | i7-6700 \| 32GB RAM | 1x256GB SDD | 1x256GB SDD |
+| SMT-PVE3 | Proxmox 8.1 | i5-5250 \| 16GB RAM | 1x512GB SDD | 1x256GB SDD |
+| SMT-PVE4 | Proxmox 8.1 | i5-7500 \| 24GB RAM |  1x1TB SDD  |     ---     |
 
-The three proxmox hosts are configured as a proxmox cluster and I plan to deploy CEPH on them as soon as I can get 3 SSD's to 
 
 
 ### Main Lab

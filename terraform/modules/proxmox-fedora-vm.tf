@@ -21,6 +21,7 @@ variable "vm-def" {
   type = object({
     proxmox-node = string
     name         = string
+    subdomain    = string
     vmid         = number
     cores        = number
     memory       = number
@@ -28,7 +29,6 @@ variable "vm-def" {
     ip           = string
     gw           = string
     ciuser       = string
-    cipassword   = string
   })
 }
 
@@ -84,7 +84,6 @@ resource "proxmox_vm_qemu" "Fedora39-VM" {
   os_type    = "cloud-init"
   ipconfig0  = "gw=${var.vm-def.gw},ip=${var.vm-def.ip}/24"
   ciuser     = var.vm-def.ciuser
-  cipassword = var.vm-def.cipassword
   sshkeys    = <<EOF
   ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC9kVnJCnneCB1PpkE+lmWwYy9ilMn1F5YuxXHQ5E/0oxrqjF90xeIGmfWJWHBQPHMeySWC3CgotqpsSTxKoK0dndtgwalZQfxcRXNus0344q3uBTiGT2VIfk3dqKQLTf+XyuM6qO1JHe16SQQyMfcpy4QiiwvSWjrwTXixcY5WNISzBLTDsmzgA7IWVKvY3yjT+rMNnrBNlhcR53gK16sayl6jNDzzfJ1xE6W70WN4zNcPmwoG4ydn1qOhGG8x5rR/vx8Kaan4rOfRS/fcx0T5BRtfz3KE5N0VmIEqUGoSlrGnpmuzlcirt5mhVtDMzUh4c2nTVclC/zL5f0BFB4SdQZyayof0N2ZhBKo2m7gXzml1uc+duoypQRQoUhPjOox+6lsFTVu++8hOcjZ4qMrgOc8ARN4cWix/Bb01T9AHZQIeIycrN1ytfMJ4mzOjHFYWxbHY0hjeV3CMBHAxz2YpzplLV6LFBicJoSoPLt54mLWwySJCYvDp8nxpJ8NeL9M= jndvasco@JNDV-PTT
   EOF
@@ -99,7 +98,7 @@ resource "proxmox_vm_qemu" "Fedora39-VM" {
   # Set the hostname and upgrade the system
   provisioner "remote-exec" {
     inline = [
-      "sudo echo '${lower(var.vm-def.name)}.servers.jndvasco.pt' | sudo tee /etc/hostname",
+      "sudo echo '${lower(var.vm-def.name)}.${var.vm-def.subdomain}.jndvasco.pt' | sudo tee /etc/hostname",
       "sudo systemd-machine-id-setup",
       "sudo dnf upgrade -y",
       "sudo dnf install git -y",
@@ -113,7 +112,7 @@ resource "proxmox_vm_qemu" "Fedora39-VM" {
 
 resource "cloudflare_record" "DNS-VM" {
   zone_id = var.cf-zone-id
-  name    = "${lower(var.vm-def.name)}.servers."
+  name    = "${lower(var.vm-def.name)}.${var.vm-def.subdomain}."
   value   = var.vm-def.ip
   type    = "A"
   proxied = false

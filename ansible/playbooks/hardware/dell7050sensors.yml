@@ -13,3 +13,8 @@
         line: 'options i8k force=1'
         create: true
       register: options-i8k
+
+  - name: Refresh initramfs
+    shell: |
+      update-initramfs -u -k all
+    register: initramfs

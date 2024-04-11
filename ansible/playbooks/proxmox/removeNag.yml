@@ -1,0 +1,14 @@
+- name: Remove PVE Nag and set the no subscription repository 
+  hosts: smt
+  tasks:
+    - name: Edit file to remove nag
+      replace:
+        path: /usr/share/javascript/proxmox-widget-toolkit/proxmoxlib.js
+        regexp: 'res[\s\n]*\.data\.status\.toLowerCase\(\) !== .active.'
+        replace: "false"
+        backup: yes
+
+    - name: Restart pveproxy
+      service:
+        name: pveproxy
+        state: restarted

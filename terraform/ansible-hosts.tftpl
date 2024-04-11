@@ -1,0 +1,65 @@
+ungrouped:
+  hosts:
+    ingress:
+      hosts:
+%{ for content_key, content_value in content }
+%{~ if length(regexall("ingress", content_key)) > 0 ~}
+        ${content_key}:
+          ansible_host: ${content_value}
+%{ endif ~}
+%{~ endfor ~}
+    master:
+      hosts:
+%{ for content_key, content_value in content }
+%{~ if length(regexall("master", content_key)) > 0 ~}
+        ${content_key}:
+          ansible_host: ${content_value}
+%{ endif ~}
+%{~ endfor ~}
+    nodes:
+      hosts:
+%{ for content_key, content_value in content }
+%{~ if length(regexall("node", content_key)) > 0 ~}
+        ${content_key}:
+          ansible_host: ${content_value}
+%{ endif ~}
+%{~ endfor ~}
+
+
+ungrouped:
+  hosts:
+    smt-pve1:
+      ansible_user: root
+      ansible_host: 10.100.1.11
+      template_id:  1000
+    smt-pve2:
+      ansible_user: root
+      ansible_host: 10.100.1.12
+      template_id:  1001
+    smt-pve3:
+      ansible_user: root
+      ansible_host: 10.100.1.13
+      template_id:  1002
+    smt-vstorage1:
+      ansible_user: root
+      ansible_host: 10.100.1.18
+    smt-vmonitoring1:
+      ansible_user: jndvasco
+      ansible_host: 10.100.1.20
+
+yum:
+  hosts:
+    smt-vmonitoring1:
+
+smt:
+  hosts:
+    smt-pve1:
+    smt-pve2:
+    smt-pve3:
+
+proxmox:
+  hosts:
+    smt-pve1:
+    smt-pve2:
+    smt-pve3:
+
