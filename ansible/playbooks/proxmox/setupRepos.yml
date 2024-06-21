@@ -1,5 +1,5 @@
 - name: Setup the no subscription repository 
-  hosts: smt
+  hosts: '{{ hosts }}'
   tasks:
     - name: Remove enterprise PVE
       file:

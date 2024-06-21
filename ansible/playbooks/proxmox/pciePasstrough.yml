@@ -1,5 +1,5 @@
 - name: Enable iommu and load the modules
-  hosts: smt
+  hosts: '{{ hosts }}'
   tasks:
   - name: Enable iommu in grub
     lineinfile:

@@ -1,5 +1,5 @@
 - name: Set Custom PS1
-  hosts: smt
+  hosts: '{{ hosts }}'
   tasks:
     - name: "Add custom PS1 to global bashrc"
       shell: >

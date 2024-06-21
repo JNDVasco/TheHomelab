@@ -1,5 +1,5 @@
 - name: Enable iGPU passtrough
-  hosts: smt
+  hosts: '{{ hosts }}'
   tasks:
   - name: Enable iommu in grub
     lineinfile:

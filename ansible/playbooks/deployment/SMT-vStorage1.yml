@@ -1,8 +1,5 @@
 - name: Create a NFS Share for the lab
-  hosts: smt-vstorage1
-  vars:
-    - repoPath: /mnt/data/homelab
-    - dockerPath: "{{ repoPath }}/SMT-vMonitoring1/docker-services"
+  hosts: '{{ hosts }}'
   tasks:
   - name: Update installed packages
     yum:

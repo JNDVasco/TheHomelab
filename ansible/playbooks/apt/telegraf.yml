@@ -1,5 +1,5 @@
 - name: Install influx Telegraf
-  hosts: proxmox
+  hosts: '{{ hosts }}'
   tasks:
     - name: "Add influx repo and install telegraf"
       shell: |

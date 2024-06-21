@@ -1,5 +1,5 @@
 - name: Enable Dell SMM 
-  hosts: smt
+  hosts: '{{ hosts }}'
   tasks:
     - name: "Add i8k to /etc/modules"
       lineinfile:
@@ -14,7 +14,7 @@
         create: true
       register: options-i8k
 
-  - name: Refresh initramfs
-    shell: |
-      update-initramfs -u -k all
-    register: initramfs
+    - name: Refresh initramfs
+      shell: |
+        update-initramfs -u -k all
+      register: initramfs

@@ -1,5 +1,5 @@
 - name: Remove PVE Nag and set the no subscription repository 
-  hosts: smt
+  hosts: '{{ hosts }}'
   tasks:
     - name: Edit file to remove nag
       replace:

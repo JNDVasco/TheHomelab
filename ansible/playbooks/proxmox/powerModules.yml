@@ -1,5 +1,5 @@
 - name: Load the modules for intel cpu power monitoring
-  hosts: smt
+  hosts: '{{ hosts }}'
   tasks:
   - name: Load modules at boot
     lineinfile:

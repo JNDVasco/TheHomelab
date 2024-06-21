@@ -10,22 +10,16 @@ Hopefully this time with less hardcode and leaked credentials
 
 
 ## Hardware
-Currently I have two homelabs in two different locations, one in at my house and one in my bedroom while I'm on an exchange.
-
-### SMT
-
-Small cluster made from refurbished mini-pcs, 2x Dell 7050 Micro, 1x HP Elitedesk 800 G3 and 1x Intel NUC 5
+Small cluster made from mini-pcs
 
 | Hostname |      OS     |        Specs        |   Storage   |     CEPH    |
 |:--------:|:-----------:|:-------------------:|:-----------:|:-----------:|
-| SMT-PVE1 | Proxmox 8.1 | i5-7500 \| 32GB RAM | 1x256GB SDD | 1x256GB SDD |
-| SMT-PVE2 | Proxmox 8.1 | i7-6700 \| 32GB RAM | 1x256GB SDD | 1x256GB SDD |
-| SMT-PVE3 | Proxmox 8.1 | i5-5250 \| 16GB RAM | 1x512GB SDD | 1x256GB SDD |
-| SMT-PVE4 | Proxmox 8.1 | i5-7500 \| 24GB RAM |  1x1TB SDD  |     ---     |
+| SMT-PVE1 | Proxmox 8.2 | i5-7500 \| 32GB RAM | 1x256GB SDD | 1x256GB SDD |
+| SMT-PVE2 | Proxmox 8.2 | i7-6700 \| 32GB RAM | 1x256GB SDD | 1x256GB SDD |
+| SMT-PVE3 | Proxmox 8.2 | i5-5250 \| 16GB RAM | 1x512GB SDD | 1x256GB SDD |
+| SMT-PVE4 | Proxmox 8.2 | i5-7500 \| 24GB RAM |  1x1TB SDD  |     ---     |
+| SMT-PVE4 | Proxmox 8.2 | i5-7500 \| 24GB RAM |  1x1TB SDD  |     ---     |
 
-
-
-### Main Lab
 
 Custom server build, a NAS and a RPi
 
